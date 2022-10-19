@@ -1,0 +1,6 @@
+requests
+pandas
+lxml
+ipython
+backoff
+bs4
