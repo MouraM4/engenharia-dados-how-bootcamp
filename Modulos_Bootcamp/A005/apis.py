@@ -1,9 +1,11 @@
 import datetime
 from abc import abstractmethod, ABC
 import requests
+import ratelimit
 import logging
-from typing import List
-import json
+
+from backoff import on_exception, expo
+
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -19,6 +21,9 @@ class MercadoBitcoinApi(ABC):
     def _get_endpoint(self, **kwargs) -> str:
         pass
 
+    @on_exception(expo, ratelimit.exception.RateLimitException, max_tries=10)
+    @ratelimit.limits(calls=29, period=30)
+    @on_exception(expo, requests.exceptions.HTTPError, max_tries=10)
     def get_data(self, **kwargs) -> dict:
         endpoint = self._get_endpoint(**kwargs)
         logger.info(f'Getting data from endpoint {endpoint} !')
@@ -58,40 +63,3 @@ class TradesApi(MercadoBitcoinApi):
             endpoint = f'{self.base_endpoint}/{self.coin}/{self.api_type}'
 
         return endpoint
-
-class DataTypeNotSupportedForIngestionException(Exception):
-    def __init__(self, data):
-        self.data = data
-        self.message = f'Data Type {type(data)} is not supported for ingestion!'
-        super().__init__(self.message)
-
-class DataWriter:
-
-    def __init__(self, filename: str) -> None:
-        self.filename = filename
-    
-    def _write_row(self, row: str) -> None:
-        with open(self.filename, 'a') as f:
-            f.write(row)
-        
-    def write(self, data):
-
-        if isinstance(data, dict):
-            self._write_row(json.dumps(data) + '\n')
-        
-        elif isinstance(data, list):
-            for element in data:
-                self.write(element)
-                
-        else:
-            raise DataTypeNotSupportedForIngestionException(data)
-
-        
-# data = DaySummaryApi('BTC').get_data(date=datetime.date(2022, 10, 27))
-# writer = DataWriter('day_summary.json')
-# writer.write(data)
-
-data = TradesApi('BTC').get_data()
-writer = DataWriter('trades.json')
-writer.write(data)
-
