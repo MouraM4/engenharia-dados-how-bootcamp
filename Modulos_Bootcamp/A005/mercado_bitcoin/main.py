@@ -2,8 +2,8 @@ import datetime
 from schedule import repeat, every, run_pending
 import time
 
-from Modulos_Bootcamp.A005.mercado_bitcoin.ingestors import DaySummaryIngestor
-from Modulos_Bootcamp.A005.mercado_bitcoin.writers import DataWriter
+from mercado_bitcoin.ingestors import DaySummaryIngestor
+from mercado_bitcoin.writers import DataWriter
 
 
 # ============ Use the DaySummaryIngestor ============

@@ -4,9 +4,9 @@ import requests
 
 from unittest.mock import patch, mock_open
 
-from Modulos_Bootcamp.A005.mercado_bitcoin.apis import DaySummaryApi
-from Modulos_Bootcamp.A005.mercado_bitcoin.apis import MercadoBitcoinApi
-from Modulos_Bootcamp.A005.mercado_bitcoin.apis import TradesApi
+from mercado_bitcoin.apis import DaySummaryApi
+from mercado_bitcoin.apis import MercadoBitcoinApi
+from mercado_bitcoin.apis import TradesApi
 
 class TestDaySummaryApi():
 
@@ -62,7 +62,7 @@ class TestTradesApi():
         assert actual == expected
 
 @pytest.fixture()
-@patch('apis.MercadoBitcoinApi.__abstractmethods__', set())
+@patch('mercado_bitcoin.apis.MercadoBitcoinApi.__abstractmethods__', set())
 def fixture_mercado_bitcoin_api():
     return MercadoBitcoinApi(
         coin='test'
@@ -91,13 +91,13 @@ def mocked_requests_get(*args, **kwargs):
 class TestMercadoBitcoinApi():
 
     @patch('requests.get')
-    @patch('apis.MercadoBitcoinApi._get_endpoint', return_value='valid_endpoint')
+    @patch('mercado_bitcoin.apis.MercadoBitcoinApi._get_endpoint', return_value='valid_endpoint')
     def test_get_data_requests_is_called(self, mock_get_endpoint, mock_requests, fixture_mercado_bitcoin_api):
         fixture_mercado_bitcoin_api.get_data()
         mock_requests.assert_called_once_with('valid_endpoint')
 
     @patch('requests.get', side_effect=mocked_requests_get)
-    @patch('apis.MercadoBitcoinApi._get_endpoint', return_value='invalid_endpoint')
+    @patch('mercado_bitcoin.apis.MercadoBitcoinApi._get_endpoint', return_value='valid_endpoint')
     def test_get_data_with_valid_endpoint(self, mock_get_endpoint, mock_requests, fixture_mercado_bitcoin_api):
         actual = fixture_mercado_bitcoin_api.get_data()
         expected = {'foo': 'bar'}
