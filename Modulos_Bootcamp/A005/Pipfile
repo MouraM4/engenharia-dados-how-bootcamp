@@ -8,6 +8,7 @@ requests = "*"
 schedule = "*"
 ratelimit = "*"
 backoff = "*"
+pytest = "*"
 
 [dev-packages]
 
