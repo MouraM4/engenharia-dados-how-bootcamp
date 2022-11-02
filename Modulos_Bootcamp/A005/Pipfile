@@ -9,6 +9,7 @@ schedule = "*"
 ratelimit = "*"
 backoff = "*"
 pytest = "*"
+pytest-cov = "*"
 
 [dev-packages]
 
