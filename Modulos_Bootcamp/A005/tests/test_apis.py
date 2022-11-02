@@ -4,9 +4,9 @@ import requests
 
 from unittest.mock import patch, mock_open
 
-from apis import DaySummaryApi
-from apis import MercadoBitcoinApi
-from apis import TradesApi
+from Modulos_Bootcamp.A005.mercado_bitcoin.apis import DaySummaryApi
+from Modulos_Bootcamp.A005.mercado_bitcoin.apis import MercadoBitcoinApi
+from Modulos_Bootcamp.A005.mercado_bitcoin.apis import TradesApi
 
 class TestDaySummaryApi():
 

@@ -1,7 +1,7 @@
 import datetime
 from abc import abstractmethod, ABC
 from typing import List
-from apis import DaySummaryApi
+from Modulos_Bootcamp.A005.mercado_bitcoin.apis import DaySummaryApi
 
 
 class DataIngestor(ABC):

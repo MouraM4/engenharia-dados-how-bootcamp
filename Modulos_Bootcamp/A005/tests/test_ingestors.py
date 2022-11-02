@@ -2,8 +2,8 @@ import datetime
 import pytest
 from unittest.mock import patch, mock_open
 
-from ingestors import DataIngestor
-from writers import DataWriter
+from Modulos_Bootcamp.A005.mercado_bitcoin.ingestors import DataIngestor
+from Modulos_Bootcamp.A005.mercado_bitcoin.writers import DataWriter
 
 
 
