@@ -6,6 +6,8 @@ from mercado_bitcoin.ingestors import DaySummaryIngestor
 from mercado_bitcoin.writers import DataWriter
 
 
+
+
 # ============ Use the DaySummaryIngestor ============
 
 if __name__ == '__main__':

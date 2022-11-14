@@ -11,6 +11,8 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 
+
+
 class MercadoBitcoinApi(ABC):
 
     def __init__(self, coin: str) -> None:
